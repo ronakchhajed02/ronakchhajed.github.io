@@ -1,0 +1,46 @@
+{% load static  %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>product</title>
+    </head>
+    <style>
+        body {
+            color: aliceblue;
+            background-color: rgb(44, 40, 40);
+        }
+    </style>
+<body>
+    <div style="margin-left: 400px;margin-top: 100px;font-family: sans-serif;">
+        <img src="{% static 'cable.jpg' %}" style="width: 300px;border-radius: 20px;" /><br>
+        <h1 style="font-weight: 50;">USB type C to lightning fast charging cable</h1> 
+        <br>
+        <div  class="bid_name" style="background-color:rgb(71, 69, 69); display:inline-block;border-radius: 20px;">
+            <div class="bid_name" style="display: inline-block;margin-left: 50px">
+                <h2>Your bid </h2>
+                {% if your_bid < highest_bid %}
+                    <h2 style="color: rgb(197, 67, 67);">&nbsp;&nbsp;&nbsp;&nbsp; ₹{{ your_bid }} </h2>
+                {% else %}
+                    <h2 style="color: rgb(50, 225, 50);">&nbsp;&nbsp;&nbsp;&nbsp; ₹{{ your_bid }} </h2>
+                {% endif %}
+            </div>
+            <div class="bid_name"  style="display: inline-block; margin-left: 50px;">
+                <h2>Higest bid </h2>
+                <h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ₹{{ highest_bid }} </h2>
+            </div>
+            <div class="bid_name"  style="display: inline-block; margin-left: 50px;margin-right: 50px;">
+                <h2>Expected Price </h2>
+                <h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ₹{{ expected_price }}</h2>
+            </div>
+        </div>
+        <form action="{% url 'product:update' %}" method="post">
+            {% csrf_token %}
+            <input type="number" placeholder="₹" name="bid"  style="height: 25px;margin-top: 20px;font-size: larger;border-radius: 20px;padding: 20px;">
+            <input type="submit" value="Bid" style="height: 50px;margin-top: 25px;font-size: larger;padding: 20px;padding-bottom: 43px;border-radius: 20px">
+        </form>
+        {% if error == 1 %}
+            <h3 style="color: red;">*Please enter bid higher than Highest bid</h3>
+        {% endif %}
+    </div>
+</body>
+</html>
